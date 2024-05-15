@@ -1,0 +1,48 @@
+/* SCSS RGB */
+/*
+$sepia: rgba(114, 59, 13, 1);
+$misty-rose: rgba(241, 222, 222, 1);
+$black: rgba(1, 4, 0, 1);
+$light-green: rgb(129, 184, 120);
+$air-force-blue: rgba(75, 136, 162, 1); 
+*/
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+
+}
+.index-header{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  background-color: rgb(184, 178, 178)!important;
+  
+}
+.index-header a{
+  color: rgb(189, 117, 9) ;
+  font-weight: bold;
+}
+.index-header li {
+  background-color: rgb(184, 178, 178);
+  margin-top: 0.2rem;
+}
+
+.logo{
+  width: 5rem;
+  height: 5rem;
+}
+
+
+.div-vh {
+  min-height: 100vh;
+  background-color: rgba(241, 222, 222, 1);
+}
+@media screen and (min-width: 576px){
+  .index-header{
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

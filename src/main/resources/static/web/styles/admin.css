@@ -1,0 +1,74 @@
+/* SCSS RGB */
+/*
+$sepia: rgba(114, 59, 13, 1);
+$misty-rose: rgba(241, 222, 222, 1);
+$black: rgba(1, 4, 0, 1);
+$light-green: rgb(129, 184, 120);
+$air-force-blue: rgba(75, 136, 162, 1); 
+*/
+.demo {
+  border:1px solid #000000;
+  border-collapse:colapso;
+  padding:5px;
+  width: 90%;
+  margin: 2rem 2rem;
+}
+.demo th {
+  border:1px solid #000000;
+  padding:5px;
+  background:#000000;
+  color: white;
+  text-align: center;
+}
+.demo td {
+  border:1px solid #000000;
+  text-align:center;
+  padding:5px;
+}
+.demo td .delete-button{
+  border-radius: 1.5rem;
+  margin-left: 1rem;
+  height: fill;
+  background-color: rgb(255, 255, 255);
+  color: rgb(220, 53, 53);
+  border: none;
+  box-shadow: none;
+  object-fit: cover;
+}
+.demo tr:hover td .delete-button{
+  display: inline;
+}
+.demo tr:hover td .delete-button:hover{
+  background-color: rgb(220, 53, 53);
+  color: rgb(56, 52, 52) ;
+}
+.demo tr:hover td .delete-button:active{
+  background-color: rgb(56, 52, 52);
+  color: rgb(220, 53, 53);
+}
+.button-image{
+  height: 1.5rem;
+  object-fit: cover;
+}
+.demo td .edit-button{
+  border-radius: 1.5rem;
+  margin-right: 1rem;
+  height: fill;
+  background-color: rgb(255, 255, 255);
+  color: rgb(13, 44, 184);
+  border: none;
+  box-shadow: none;
+  object-fit: cover;
+}
+.demo tr:hover td .edit-button{
+  display: inline;
+}
+.demo tr:hover td .edit-button:hover{
+  background-color: rgb(220, 217, 53);
+  color: rgb(56, 52, 52) ;
+}
+.demo tr:hover td .edit-button:active{
+  background-color: rgb(56, 52, 52);
+  color: rgb(220, 217, 53);
+}
+

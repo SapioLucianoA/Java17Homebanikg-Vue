@@ -1,0 +1,396 @@
+/* SCSS RGB */
+/*
+$sepia: rgba(114, 59, 13, 1);
+$misty-rose: rgba(241, 222, 222, 1);
+$black: rgba(1, 4, 0, 1);
+$light-green: rgb(129, 184, 120);
+$air-force-blue: rgba(75, 136, 162, 1); 
+*/
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+
+}
+
+.div-vh {
+  min-height: 100vh;
+  background-color: rgba(241, 222, 222, 1);
+}
+.all-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+}
+.contenedor-h-cards {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+}
+
+.credit-cards-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+  flex-direction: column;
+
+}
+.contenedor-h-cards{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.card-container{
+  height: 15rem;
+  width: 300px;
+
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+
+}
+  /* --------------------------- CARD FRONT-FACE------------------------------------------------*/
+
+  /*------------------------------------------------- ESTILOS POR CARDS + spans -------------------------------------------------------- */
+.card-container .card {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.card.gold.front-face {
+
+  z-index: 1;
+  overflow: hidden;
+  box-shadow: 0.5rem 0.5rem 1rem rgba(234, 164, 107, 0.826);
+  border: 0.1rem rgb(234, 164, 107) solid;
+  backface-visibility: hidden;
+}
+
+
+.card.front-face .span-front1{
+  position: absolute;
+  z-index: -8;
+  background: linear-gradient(45deg, rgba(168, 102, 48, 0.826), rgba(247, 169, 105, 0.826));
+  width: 100%;
+  height: 100%;
+}
+/* ----------------------------------GOLD SPANS------------------------------------------------ */
+.card.front-face.gold .span-front2{
+  position: absolute;
+  z-index: -2;
+  background:linear-gradient(45deg,#FFD700,#f4e79d ) ;
+  border: 0.1rem solid #FFD700 ;
+  
+  bottom: -5rem;
+  right: -5rem;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  
+} 
+.card.front-face.gold .span-front3{
+  position: absolute;
+  z-index: -3;
+  background:linear-gradient(45deg, #eeb933 ,#fbdc8e );
+  bottom: -6rem;
+  right: -6rem;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+
+} 
+.card.front-face.gold .span-front4{
+  position: absolute;
+  z-index: -4;
+  background:linear-gradient(45deg, #DAA520, #fad77e);
+  bottom: -7rem;
+  right: -7rem;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+
+}
+.card.front-face.gold .span-front5{
+  position: absolute;
+  z-index: -5;
+  background:linear-gradient(45deg, #D4AF37, #fbdc76);
+  bottom: -8rem;
+  right: -8rem;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+
+}
+.card.front-face.gold .span-front6{
+  position: absolute;
+  z-index: -6;
+  bottom: -9rem;
+  right: -9rem;
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  background:linear-gradient(45deg, #FFD700,#f4e79d );
+
+}
+.card.front-face.gold .span-front7{
+  position: absolute;
+  z-index: -7;
+  background:linear-gradient(45deg, #eeb933 ,#fbdc8e );
+
+
+  bottom: -10rem;
+  right: -10rem;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+
+}
+
+/* ---------------------------------- SILVER CARDS --------------------------------------------------*/
+.card.front-face.silver {
+
+  /* background-color: transparent; */
+  box-shadow: 0.5rem 0.5rem 1rem rgba(234, 164, 107, 0.826);
+  border: 0.1rem rgb(234, 164, 107) solid;
+  z-index: 0;
+  overflow: hidden;
+  
+}
+.card.front-face.silver .span-front2{
+  position: absolute;
+  z-index: -2;
+  background:linear-gradient(45deg, #C0C0C0,#f0efef ) ;
+  
+  bottom: -5rem;
+  right: -5rem;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  
+} 
+.card.front-face.silver .span-front3{
+  position: absolute;
+  z-index: -3;
+  background:linear-gradient(45deg, #b3b3b3 ,#ece6e6 );
+  bottom: -6rem;
+  right: -6rem;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+
+} 
+.card.front-face.silver .span-front4{
+  position: absolute;
+  z-index: -4;
+  background:linear-gradient(45deg, #C0C0C0, #f0efef );
+  bottom: -7rem;
+  right: -7rem;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+
+}
+.card.front-face.silver .span-front5{
+  position: absolute;
+  z-index: -5;
+  background:linear-gradient(45deg, #787878, #efeded);
+  bottom: -8rem;
+  right: -8rem;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+
+}
+.card.front-face.silver .span-front6{
+  position: absolute;
+  z-index: -6;
+  bottom: -9rem;
+  right: -9rem;
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  background:linear-gradient(45deg, #F5F5F5,#ffeded );
+
+}
+.card.front-face.silver .span-front7{
+  position: absolute;
+  z-index: -7;
+  background:linear-gradient(45deg, #DCDCDC ,#f0e6e6);
+
+
+  bottom: -10rem;
+  right: -10rem;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+
+}
+/*------------------------------------------------------- COLOR PLATINUM O DARK------------------------------ */
+.card.front-face.platinum {
+  height: 15rem;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0.5rem 0.5rem 1rem #696969;
+  border: 0.1rem #C0C0C0 solid;
+  
+}
+.card.platinum {
+  
+  /* background-color: transparent; */
+  border: #C0C0C0 0.1rem solid;
+  z-index: 0;
+  overflow: hidden;
+  
+}
+.card.front-face.platinum .span-front1{
+  position: absolute;
+  z-index: -10;
+  background-image: linear-gradient(45deg, #C0C0C0 0%, #cfc9c9 50%, #C0C0C0 100%);
+  width: 100%;
+  height: 100%;
+}
+.card.front-face.platinum .span-front2{
+  position: absolute;
+  z-index: -9;
+  background:transparent ;
+  bottom: -7rem;
+  right: 1;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  box-shadow: inset;
+  box-shadow: inset 5px 5px 30px rgba(0, 0, 0, 0.5); /* Inset shadow with dark gray color */
+
+  
+} 
+.card.front-face.platinum .span-front3{
+  position: absolute;
+  z-index: -3;
+  background:transparent;
+  border: whitesmoke solid 0.2rem;
+  bottom: 1;
+  right: -6rem;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  
+}
+
+
+/* --------------------------------CARD LOGOS----------------------------------------------- */
+.card.front-face .card-logos {
+  height: 25%;
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+pointer-events: none;
+}
+
+.card.front-face .card-logos h3 {
+  font-family: math;
+  font-weight: 900;
+  font-style: oblique;
+  font-size: 1rem;
+  pointer-events: none;
+}
+
+
+.master-logo {
+  width: 55px;
+  pointer-events: none;
+}
+
+/* -------------------------SEGUNDO DIV CHIP Y TIPO------------------------ */
+
+.card.front-face .chip-type-card{
+  height: 25%;
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
+}
+.chip-card{
+  height: 55px;
+}
+.chip-type-card h3{
+  font-family: revert;
+  font-weight: bold;
+}
+
+/* ---------------------------------------TERCER DIV CARD NUMBER ---------------------------------------*/
+.card.front-face .card-number{
+  pointer-events: none;
+  display: flex;
+  width: 95%;
+  height: 25%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.card-number h3{
+  font-family: sans-serif;
+  font-size: 1.5rem;
+}
+
+/*-------------- CUARTO DIV HOlDER Y EXP -----------------*/
+
+.card.front-face .holder-exp{
+  display: flex;
+  height: 25%;
+  width: 95%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+}
+.my-password-field {
+  -webkit-text-security: disc; /* Support for older WebKit browsers */
+}
+.card:active .my-password-field{
+  -webkit-text-security: none;
+}
+
+@media screen and (min-width: 450px){
+
+  /* --------------------------- CARD FRONT-FACE MEDIA------------------------------------------------*/
+  .card-container{
+    width: 410px;
+    height: 240px;
+    margin: 1rem;
+  }
+  .card-container .card.front-face.platinum{
+    width: 410px;
+    height: 240px;
+  }
+
+}
+@media screen and (min-width: 900px){
+  .all-container{
+    flex-direction: row;
+  }  
+  .credit-cards-container{
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-left: black 0.1rem solid;
+  }
+  
+}

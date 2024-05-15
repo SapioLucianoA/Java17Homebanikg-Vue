@@ -1,0 +1,66 @@
+.div-form{
+  width: 100%;
+  height: 12rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+}
+.formulary{
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: 0.01rem solid rgba(114, 59, 13, 1);
+  gap: 1rem;
+  height: 7rem;
+}
+
+.form-radios{
+  display: flex;
+  align-items:center ;
+  justify-content: center;
+  flex-direction: row;
+  gap: 2rem;
+}
+.radios-radio{
+  padding: 5px;
+  border-radius: 20px;
+  transition: 1s;
+}
+.radios-radio:hover{
+  border: 0.05rem solid rgba(114, 59, 13, 1);
+}
+
+.radios-radio input:checked + label{
+  border-bottom: 3px solid rgba(114, 59, 13, 1) ;
+}
+.radios-radio input{
+  cursor: pointer;
+  background-color: rgba(114, 59, 13, 1);
+}
+.radios-radio input:hover{
+  border: 0.1rem solid  rgba(114, 59, 13, 1);
+  background-color: rgba(241, 222, 222, 1);
+}
+.radios-radio input:checked{
+  /* box-shadow: inset 2px 2px 3px rgba(114, 59, 13, 1) ; Inset shadow with dark gray color */
+  background-color: rgba(114, 59, 13, 1);
+}
+.form-radios label{
+  cursor: pointer;
+  transition: 0.1s;
+}
+
+.form-select {
+  width: 80%;
+  background: linear-gradient(45deg, rgb(192, 125, 70), rgb(212, 157, 112), rgb(192, 125, 70)); /* Corrected code */
+  font-weight: bold;
+  cursor: pointer;
+}
+@media screen and (min-width: 450px){
+  .formulary{
+    width: 400px;
+  }
+}

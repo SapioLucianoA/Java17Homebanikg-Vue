@@ -1,0 +1,214 @@
+.div-formulary {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-direction: column;
+  margin-top: 3rem;
+  transition: 1s;
+}
+
+.div-formulary .formulary {
+  width: 90%;
+  height: 15rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: transparent;
+  position: relative;
+  z-index: 1;
+  gap: 1rem;
+  overflow: hidden;
+  transition: 1s;
+}
+.formulary label{
+  cursor: pointer;
+}
+.formulary input{
+  cursor: pointer;
+}
+.formulary .span1 {
+  position: absolute;
+  z-index: -8;
+  background: rgba(241, 222, 222, 1);
+  width: 100%;
+  height: 100%;
+  border: 0.1rem solid rgb(163, 99, 46);
+  transition: 1s;
+}
+
+.formulary .span2 {
+  position: absolute;
+  transition: 1s;
+}
+
+.formulary .span3 {
+  position: absolute;
+  transition: 1s;
+}
+
+.formulary .span4 {
+  position: absolute;
+  transition: 1s;
+}
+
+.formulary.common .span1 {
+  position: absolute;
+  border: 0.1rem solid rgba(75, 136, 162, 1) ;
+  z-index: -8;
+  background: rgba(241, 222, 222, 1);
+  width: 100%;
+  height: 100%;
+  
+}
+.formulary.common .span2 {
+  position: absolute;
+  top: -3rem;
+  left: -4rem;
+  width: 120px;
+  height: 350px;
+  background-color: rgba(75, 136, 162, 1);
+  /* Color del pseudoelemento */
+  z-index: -1;
+  /* Coloca el pseudoelemento detrás del contenido */
+  border-radius: 5px;
+  /* Bordes redondeados */
+  pointer-events: none;
+  border-radius: 50%;
+  transform: rotate(27deg);
+
+}
+
+.formulary.common .span3 {
+  position: absolute;
+  top: -3rem;
+  left: -4rem;
+  width: 120px;
+  height: 500px;
+  background-color: rgb(27, 74, 94);
+  /* Color del pseudoelemento */
+  z-index: -2;
+  /* Coloca el pseudoelemento detrás del contenido */
+  border-radius: 5px;
+  /* Bordes redondeados */
+  pointer-events: none;
+  border-radius: 50%;
+  transform: rotate(30deg);
+
+}
+
+.formulary.common .span4 {
+  position: absolute;
+  position: absolute;
+  top: -4rem;
+  left: -10rem;
+  width: 160px;
+  height: 700px;
+  background-color: rgb(114, 193, 227);
+  /* Color del pseudoelemento */
+  z-index: -2;
+  /* Coloca el pseudoelemento detrás del contenido */
+  border-radius: 5px;
+  /* Bordes redondeados */
+  pointer-events: none;
+  border-radius: 50%;
+  transform: rotate(46deg);
+
+}
+
+
+
+.formulary.saved .span1 {
+  position: absolute;
+  border: 0.1rem solid rgb(129, 184, 120);
+  z-index: -8;
+  background: rgba(241, 222, 222, 1);
+  width: 100%;
+  height: 100%;
+}
+.formulary.saved  .span2 {
+  position: absolute;
+  top: -3rem;
+  left: -4rem;
+  width: 120px;
+  height: 350px;
+  background-color: rgb(129, 184, 120); /* Color del pseudoelemento */
+  z-index: -1; /* Coloca el pseudoelemento detrás del contenido */
+  border-radius: 5px; /* Bordes redondeados */
+  pointer-events: none;
+  border-radius: 50%;
+  transform: rotate(27deg);
+}
+.formulary.saved  .span3 {
+  position: absolute;
+  top: -3rem;
+  left: -4rem;
+  width: 120px;
+  height: 500px;
+  background-color: rgb(51, 101, 43); /* Color del pseudoelemento */
+  z-index: -2; /* Coloca el pseudoelemento detrás del contenido */
+  border-radius: 5px; /* Bordes redondeados */
+  pointer-events: none;
+  border-radius: 50%;
+  transform: rotate(30deg);
+}
+.formulary.saved  .span4 {
+  position: absolute;
+  top: -4rem;
+  left: -10rem;
+  width: 160px;
+  height: 700px;
+  background-color: rgb(124, 231, 107); /* Color del pseudoelemento */
+  z-index: -2; /* Coloca el pseudoelemento detrás del contenido */
+  border-radius: 5px; /* Bordes redondeados */
+  pointer-events: none;
+  border-radius: 50%;
+  transform: rotate(46deg);
+}
+
+.checks-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-direction: row;
+}
+
+.button {
+  position: relative;
+  width: 13rem;
+  height: 45px;
+  background: transparent;
+  border: 2px solid rgba(114, 59, 13, 1);
+  outline: none;
+  border-radius: 2.5rem;
+  cursor: pointer;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.button:before {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 300%;
+  background: linear-gradient(rgba(241, 222, 222, 1), rgba(114, 59, 13, 1), rgba(241, 222, 222, 1), rgba(114, 59, 13, 1));
+  z-index: -1;
+  transition: .5s;
+}
+
+.button:hover:before {
+  top: 0;
+}
+
+@media screen and (min-width: 550px) {
+  .div-formulary .formulary{
+    width: 500px;
+    height: 15rem;
+  }
+}
