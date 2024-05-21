@@ -15,6 +15,8 @@ public class Transaction {
     private Double amount;
     private String description;
     private LocalDateTime date;
+    private Double currentBalance;
+    private boolean isActive;
 
     @ManyToOne
     private Account account;
@@ -22,11 +24,13 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(TransactionType type, Double amount, String description, LocalDateTime date) {
+    public Transaction(TransactionType type, Double amount, String description, LocalDateTime date, boolean isActive, Double currentBalance) {
+        this.currentBalance = currentBalance;
         this.type = type;
         this.amount = amount;
         this.description = description;
         this.date = date;
+        this.isActive = isActive;
     }
 
     public String getId() {
@@ -71,5 +75,21 @@ public class Transaction {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public Double getCurrentBalance() {
+        return currentBalance;
+    }
+
+    public void setCurrentBalance(Double currentBalance) {
+        this.currentBalance = currentBalance;
     }
 }

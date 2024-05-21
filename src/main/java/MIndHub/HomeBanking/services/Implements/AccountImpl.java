@@ -1,6 +1,8 @@
 package MIndHub.HomeBanking.services.Implements;
 
+import MIndHub.HomeBanking.dtosAndRecords.AccountDTO;
 import MIndHub.HomeBanking.models.Account;
+import MIndHub.HomeBanking.models.Client;
 import MIndHub.HomeBanking.repositories.AccountRepository;
 import MIndHub.HomeBanking.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
 import java.util.List;
+import java.util.Set;
+
 @Service
 public class AccountImpl implements AccountService {
     @Autowired
@@ -45,5 +49,11 @@ public class AccountImpl implements AccountService {
         }
         return "VIN-" + num1;
     }
+
+    @Override
+    public boolean accountExistByNumber(String number) {
+        return accountRepository.existsByNumber(number);
+    }
+
 
 }

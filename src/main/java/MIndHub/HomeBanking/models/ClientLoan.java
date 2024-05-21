@@ -8,6 +8,7 @@ public class ClientLoan {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
+    private String loanName;
     private Double amount;
     private Integer payments;
     private Integer sold;
@@ -25,9 +26,10 @@ public class ClientLoan {
     public ClientLoan() {
     }
 
-    public ClientLoan(Double amount, Integer payments) {
+    public ClientLoan(Double amount, Integer payments, Integer sold) {
         this.amount = amount;
         this.payments = payments;
+        this.sold = sold;
     }
 
     public String getId() {

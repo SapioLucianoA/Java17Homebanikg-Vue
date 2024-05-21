@@ -34,10 +34,7 @@
 									<a class="nav-link" href="./accounts.html">Accounts</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" href="#">Sing In</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link" href="#">Sing Up</a>
+									<a class="nav-link" href="#" @click="logOut" >Log Out</a>
 								</li>
 							</ul>
 						</div>
@@ -45,7 +42,7 @@
 				</nav>
 			</div>
 			<div class="div-formulary">
-				<form class="formulary" :class="{ saved: isSaved }, { common: isCommon }">
+				<form class="formulary" :class="{ saved: isSaved }, { common: isCommon }" @submit.prevent="newAccount">
 					<span class="span1"></span>
 					<span class="span2"></span>
 					<span class="span3"></span>
@@ -60,10 +57,11 @@
 									<input  class="form-check-input"
 									type="radio"
 									name="accountType"
-									id="commonAccount"
-									value="COMMON"
+									id="NORMAL"
+									v-model="accountType"
+									value="NORMAL"
 									@click="changeCommon">
-									<label class="form-check-label" for="commonAccount">
+									<label class="form-check-label" for="NORMAL">
 										Common
 									</label>
 								</div>
@@ -71,17 +69,18 @@
 									<input class="form-check-input"
 									type="radio"
 									name="accountType"
-									id="savedAccount"
+									id="SAVED"
+									v-model="accountType"
 									value="SAVED"
 									@click="changeSaved">
-									<label class="form-check-label" for="savedAccount">
+									<label class="form-check-label" for="SAVED">
 										Saved
 									</label>
 								</div>
 							</div>
 						</div>
 					</fieldset>
-					<button type="submit" class="button">Create CapyCard</button>
+					<button type="submit" class="button">Create Capycount</button>
 
 				</form>
 			</div>

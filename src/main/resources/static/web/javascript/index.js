@@ -20,57 +20,62 @@ createApp({
         changeActive() {
             this.isActive = !this.isActive;
         },
-        submitForm() {
-            axios.post('/api/login', `email=${this.email}&password=${this.password}`)
+        logOut() {
+            // Send a POST request to the logout endpoint
+            axios.post('/api/logout')
                 .then(response => {
-                    console.log(response)
+                    // Handle successful logout
+                    console.log('Logged out successfully');
+                    window.location.href ="/web/pages/login.html"
 
-                    window.location.href = `/web/pages/accounts.html`;
                 })
                 .catch(error => {
-                    if (error.response) {
-                        // La solicitud se hizo y el servidor respondió con un código de estado
-                        // que cae fuera del rango de 2xx
-                        console.log(error.response.data);
-                        alert(error.response.status + " " + error.response.data);
-                        console.log(error.response.headers);
-                    } else if (error.request) {
-                        // La solicitud se hizo pero no se recibió ninguna respuesta
-                        alert(error.request);
-                    } else {
-                        // Algo sucedió en la configuración de la solicitud que provocó un error
-                        console.log('Error', error.message);
-                    }
-                    console.log(error.config);
-                });;
+                    // Handle logout error
+                    console.error('Error logging out:', error);
+                });
         },
-        register() {
-            axios.post(`/api/client`, this.clientRecord)
+    submitForm() {
+        axios.post('/api/login', `email=${this.email}&password=${this.password}`)
+            .then(response => {
+                console.log(response)
 
-                .then(response => {
-                    console.log(response)
-                    alert("register succes! thanks to be capybara")
-                    // window.location.href = `/web/index.html`
-                    this.changeActive();
-                })
-                .catch(error => {
-                    if (error.response) {
-                        // La solicitud se hizo y el servidor respondió con un código de estado
-                        // que cae fuera del rango de 2xx
-                        console.log(error.response.data);
-                        alert(error.response.status + " " + error.response.data);
-                        console.log(error.response.headers);
-                    } else if (error.request) {
-                        // La solicitud se hizo pero no se recibió ninguna respuesta
-                        alert(error.request);
-                    } else {
-                        // Algo sucedió en la configuración de la solicitud que provocó un error
-                        console.log('Error', error.message);
-                    }
-                    console.log(error.config);
-                });;
-        },
+                window.location.href = `/web/pages/accounts.html`;
+            })
+            .catch(error => {
+                if (error.response) {
+                    console.log(error.response.data);
+                    alert(error.response.status + " " + error.response.data);
+                    console.log(error.response.headers);
+                } else if (error.request) {
+                    alert(error.request);
+                } else {
+                    console.log('Error', error.message);
+                }
+                console.log(error.config);
+            });;
+    },
+    register() {
+        axios.post(`/api/client`, this.clientRecord)
+
+            .then(response => {
+                console.log(response)
+                alert("register succes! thanks to be capybara")
+                this.changeActive();
+            })
+            .catch(error => {
+                if (error.response) {
+                    console.log(error.response.data);
+                    alert(error.response.status + " " + error.response.data);
+                    console.log(error.response.headers);
+                } else if (error.request) {
+                    alert(error.request);
+                } else {
+                    console.log('Error', error.message);
+                }
+                console.log(error.config);
+            });;
+    },
 
 
-    }
+}
 }).mount('#app')

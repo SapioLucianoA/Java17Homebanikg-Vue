@@ -8,7 +8,8 @@
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="../styles/header.css">
   <link rel="stylesheet" href="../styles/create-card.css">
-  <title>Document</title>
+  <link rel="shortcut icon" href="../assets/img/Favicon.png" type="image/x-icon">
+  <title>Capybank |  create-card</title>
 </head>
 
 <body>
@@ -35,7 +36,7 @@
                   <a class="nav-link" href="./cards.html">Cards</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Log Out</a>
+                  <a class="nav-link" href="#" @click="logOut">Log Out</a>
                 </li>
               </ul>
             </div>
@@ -44,43 +45,45 @@
       </div>
 
       <div class="div-form">
-        <form class="formulary">
+        <form class="formulary" @submit.prevent="newCard">
+          <h2>Select the type</h2>
           <div class="form-radios">
+            
             <div class="radios-radio">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-              <label class="form-check-label" for="flexRadioDefault1">
-                Credit
-              </label>
+              <input class="form-check-input" type="radio" value="CREDIT" name="cardType" v-model="type" id="CREDIT">
+              <label  class="form-check-label ms-1" for="CREDIT">Credit</label>
             </div>
             <div class="radios-radio">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-              <label class="form-check-label" for="flexRadioDefault2">
-                Debit
-              </label>
+              <input  class="form-check-input" type="radio" value="DEBIT" name="cardType" v-model="type" id="DEBIT">
+              <label class="form-check-label ms-1" for="DEBIT">Debit</label>
             </div>
           </div>
-          <select class="form-select" aria-label="Card Color Select">
-            <option class="text-center" selected>Select the card color </option>
-            <option value="silver">Silver</option>
-            <option value="gold">Gold</option>
-            <option value="platinum">Platinum</option>
+          <h2>Select the color</h2>
+          <select class="form-select" aria-label="Card Color Select" v-model="color">
+            <option class="text-center" value=""> Select the card color </option>
+            <option class="text-center"  value="SILVER">Silver</option>
+            <option class="text-center"  value="GOLD">Gold</option>
+            <option class="text-center"  value="TITANIUM">Platinum</option>
           </select>
+          <button type="submit" class="button" >Create</button>
         </form>
         <div>
 
         </div>
       </div>
     </div>
+  </div>
 
 
 
 
-
+    
+</body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"></script>
+      crossorigin="anonymous">
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-</body>
-
+    <script src="../javascript/create-card.js" ></script>
 </html>

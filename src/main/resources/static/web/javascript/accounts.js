@@ -6,7 +6,7 @@ createApp({
       accounts: [],
       data: {},
       userName: "",
-
+      loans:[]
     };
   },
   created() {
@@ -15,10 +15,14 @@ createApp({
   .then(response => {
     console.log(response.data);
     this.data = response.data;
+    console.log(this.data)
     this.userName = this.data.lastName +" "+this.data.name;
     this.accounts = this.data.accountSet;
 
     console.log(this.accounts)
+    this.loans = this.data.clientLoanSet;
+    console.log(this.loans)
+
     //  
     // console.log(this.userName)
   })

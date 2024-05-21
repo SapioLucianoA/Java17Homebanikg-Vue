@@ -16,6 +16,9 @@ public class AccountDTO {
     private String number;
     private String clientFullName;
     private AccountType accountType;
+    private boolean isActive;
+
+
     private Set<TransactionDTO> transactions;
 
 
@@ -24,9 +27,10 @@ public class AccountDTO {
         this.currentDateValue = account.getCurrentDateValue();
         this.balance = account.getBalance();
         this.number = account.getNumber();
-        this.clientFullName = account.getClient().getLastName() + account.getClient().getName();
+        this.clientFullName = account.getClient().getLastName() +" "+account.getClient().getName();
         this.transactions = account.getTransactions().stream().map(transaction -> new TransactionDTO(transaction)).collect(Collectors.toSet());
         this.accountType = account.getAccountType();
+        this.isActive = account.isActive();
     }
 
     public String getId() {
@@ -55,5 +59,9 @@ public class AccountDTO {
 
     public Set<TransactionDTO> getTransactions() {
         return transactions;
+    }
+
+    public boolean isActive() {
+        return isActive;
     }
 }

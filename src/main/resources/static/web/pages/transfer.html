@@ -46,17 +46,17 @@
       </div>
 
       <div class="d-flex align-items-center justify-content-center mt-5">
-        <form class="formulary">
+        <form class="formulary" @submit.prevent="SendTransaction">
           <h2 class="text-center">Transfer</h2>
-          <select class="form-select" aria-label="Select yout account" required>
-            <option selected>Select your account</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+          <select class="form-select" aria-label="Select your account" v-model="accountNumberOrigin" required>
+            <option value="">Select your account</option>
+            <option v-for="account in accounts" :value="account.number">
+              {{ account.number }}
+            </option>
           </select>
           <div class="input-box">
-            <input type="text" class="disabled" aria-label="Max Amount" id="Max-Amount" placeholder="0000.00">
-            
+            <input type="text" class="form-control" aria-label="Max Amount" id="Max-Amount" v-model="originAmount"
+              placeholder="0000.00" disabled>
             <label for="Max-Amount"> Max Amount </label>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
               class="bi bi-currency-dollar" viewBox="0 0 16 16">
@@ -65,14 +65,17 @@
             </svg>
           </div>
           <div class="input-box">
-            <input id="Account-To-Transfer" type="text" class="" aria-label="Account Number" placeholder="VIN-0000001" required>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-vcard-fill" viewBox="0 0 16 16">
-              <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm9 1.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 0-1h-4a.5.5 0 0 0-.5.5M9 8a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 0-1h-4A.5.5 0 0 0 9 8m1 2.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5m-1 2C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1 1 0 0 0 2 13h6.96q.04-.245.04-.5M7 6a2 2 0 1 0-4 0 2 2 0 0 0 4 0"/>
+            <input id="Account-To-Transfer" type="text" v-model="accountNumberSend" class="form-control" aria-label="Account Number" placeholder="VIN-0000001"
+              required>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-person-vcard-fill" viewBox="0 0 16 16">
+              <path
+                d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm9 1.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 0-1h-4a.5.5 0 0 0-.5.5M9 8a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 0-1h-4A.5.5 0 0 0 9 8m1 2.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5m-1 2C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1 1 0 0 0 2 13h6.96q.04-.245.04-.5M7 6a2 2 0 1 0-4 0 2 2 0 0 0 4 0" />
             </svg>
             <label for="Account-To-Transfer"> Account to transfer </label>
           </div>
           <div class="input-box">
-            <input id="amount" type="text" class="" aria-label="Amount to Transfer" placeholder="0000.00" required>
+            <input id="amount" type="text" class="" aria-label="Amount to Transfer" placeholder="0000.00" v-model="amount" required>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
               class="bi bi-currency-dollar" viewBox="0 0 16 16">
               <path
@@ -80,9 +83,19 @@
             </svg>
             <label for="amount">Ammount to Transfer</label>
           </div>
-          <button type="submit" class="button">Send <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
-            <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/>
-          </svg></button>
+          <div class="input-box">
+            <input id="description" type="text" class="" aria-label="Descrption" placeholder="abc...." v-model="description" required>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-heart-fill" viewBox="0 0 16 16">
+              <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555l-4.2 2.568-.051-.105c-.666-1.3-2.363-1.917-3.699-1.25-1.336-.667-3.033-.05-3.699 1.25l-.05.105zM11.584 8.91l-.073.139L16 11.8V4.697l-4.003 2.447c.027.562-.107 1.163-.413 1.767Zm-4.135 3.05c-1.048-.693-1.84-1.39-2.398-2.082L.19 12.856A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144L10.95 9.878c-.559.692-1.35 1.389-2.398 2.081L8 12.324l-.551-.365ZM4.416 8.91c-.306-.603-.44-1.204-.413-1.766L0 4.697v7.104l4.49-2.752z"/>
+              <path d="M8 5.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132"/>
+            </svg>
+            <label for="amount">Description</label>
+          </div>
+          <button type="submit" class="button">Send <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+              fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+              <path
+                d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z" />
+            </svg></button>
         </form>
       </div>
     </div>
@@ -93,6 +106,6 @@
   integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-<script src="../javascript/accounts.js"></script>
+<script src="../javascript/transfer.js"></script>
 
 </html>

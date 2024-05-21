@@ -42,10 +42,10 @@ public class HomeBankingApplication {
 			client1.addAccount(accountClient11);
 			client2.addAccount(accountClient21);
 
-			Transaction transactionMelba1 = new Transaction(TransactionType.CREDIT, 200.00, "Lunch with my Hommies", LocalDateTime.now().minusHours(4));
-			Transaction transactionMelba2 = new Transaction(TransactionType.DEBIT, 30000.00, "Fest with my Hommies", LocalDateTime.now().minusHours(3));
-			Transaction transactionMelba3 = new Transaction(TransactionType.CREDIT, 50.00, "play with my Hommies", LocalDateTime.now().minusHours(2));
-			Transaction transactionMelba4 = new Transaction(TransactionType.DEBIT, 100.00, "killing with my Hommies", LocalDateTime.now().minusHours(1));
+			Transaction transactionMelba1 = new Transaction(TransactionType.CREDIT, 200.00, "Lunch with my Hommies", LocalDateTime.now().minusHours(4), true, 1000.00);
+			Transaction transactionMelba2 = new Transaction(TransactionType.DEBIT, -30000.00, "Fest with my Hommies", LocalDateTime.now().minusHours(3), true, 9000.00);
+			Transaction transactionMelba3 = new Transaction(TransactionType.CREDIT, 50.00, "play with my Hommies", LocalDateTime.now().minusHours(2), true, 10000.00);
+			Transaction transactionMelba4 = new Transaction(TransactionType.DEBIT, -100.00, "killing with my Hommies", LocalDateTime.now().minusHours(1), true, 1000.00);
 
 			accountClient11.addTransaction(transactionMelba1);
 			accountClient11.addTransaction(transactionMelba2);
@@ -63,22 +63,22 @@ public class HomeBankingApplication {
 
 			//ClientLoans
 
-			ClientLoan clientLoan1MM = new ClientLoan(400000.00, 60);
+			ClientLoan clientLoan1MM = new ClientLoan(400000.00, 60, 0);
 
 			mortageLoan.addClientLoan(clientLoan1MM);
 			client1.addLoan(clientLoan1MM);
 
-			ClientLoan clientLoan2MM = new ClientLoan(500000.00, 12);
+			ClientLoan clientLoan2MM = new ClientLoan(500000.00, 12,0);
 
 			personalLoan.addClientLoan(clientLoan2MM);
 			client1.addLoan(clientLoan2MM);
 
-			ClientLoan clientLoan1DD = new ClientLoan(100000.00, 24);
+			ClientLoan clientLoan1DD = new ClientLoan(100000.00, 24,0);
 
 			personalLoan.addClientLoan(clientLoan1DD);
 			client2.addLoan(clientLoan1DD);
 
-			ClientLoan clientLoan2DD = new ClientLoan(200000.00, 36);
+			ClientLoan clientLoan2DD = new ClientLoan(200000.00, 36,0);
 
 			autoLoan.addClientLoan(clientLoan2DD);
 			client2.addLoan(clientLoan2DD);
@@ -88,7 +88,7 @@ public class HomeBankingApplication {
 
 
 
-			Card card2MM = new Card(CardType.DEBIT, CardColor.TITANIUM, "888", "MELBA MOREL", "1231-1231-1231-1232", LocalDate.now(), LocalDate.now().plusYears(5),true);
+			Card card2MM = new Card(CardType.CREDIT, CardColor.TITANIUM, "888", "MELBA MOREL", "1231-1231-1231-1232", LocalDate.now(), LocalDate.now().plusYears(5),true);
 
 			client1.addCard(card1MM);
 			client1.addCard(card2MM);

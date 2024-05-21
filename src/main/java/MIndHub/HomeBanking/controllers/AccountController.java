@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
+@RestController
 @RequestMapping("/api")
 public class AccountController {
     @Autowired
@@ -65,7 +65,7 @@ public class AccountController {
         String email = authentication.getName();
 
         Client client = clientService.findClientByEmail(email);
-        Set<AccountDTO> accountDTOS = client.getAccountSet().stream().map(account -> new AccountDTO(account)).collect(Collectors.toSet());
+        Set<AccountDTO> accountDTOS = client.getAccountSet().stream().filter(account -> account.isActive()).map(account -> new AccountDTO(account)).collect(Collectors.toSet());
 
 
         return accountDTOS;
@@ -81,14 +81,9 @@ public class AccountController {
 
         Client client = clientService.findClientByEmail(email);
 
-        Set<Account> accounts = client.getAccountSet();
+        Set<Account> accounts = client.getAccountSet().stream().filter(account -> account.isActive()).collect(Collectors.toSet());
 
-        Set<Account> accountsFilter = accounts.stream()
-                .filter(account -> account.isActive() == true)
-                .collect(Collectors.toSet());
-
-
-        if (accountsFilter.size() >= 3) {
+        if (accounts.size() >= 3) {
             return new ResponseEntity<>("you cant have 3 or more Accounts", HttpStatus.FORBIDDEN);
         }
 
@@ -98,9 +93,11 @@ public class AccountController {
         //creacion y guardado
         Account account = new Account(LocalDate.now(), 00.00, accountNumber, accountType, true);
 
+        client.addAccount(account);
         accountService.save(account);
-        return new ResponseEntity<>("Account created success!", HttpStatus.CREATED);
+        clientService.save(client);
 
+        return new ResponseEntity<>("Account created success!", HttpStatus.CREATED);
     }
 
 

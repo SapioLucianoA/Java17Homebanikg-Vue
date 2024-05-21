@@ -1,0 +1,22 @@
+.div-contaner{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+table{
+  width: 100%;
+  margin: 0.3rem;
+}
+table th, table td {
+  border: 0.1rem black solid;
+  border-collapse: collapse;
+  text-align: center;
+}
+table td.DEBIT{
+  background-color: rgba(251, 105, 105, 0.418);
+}
+table td.CREDIT{
+  background-color: rgba(68, 193, 68, 0.418);
+}
