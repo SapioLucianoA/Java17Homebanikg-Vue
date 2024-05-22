@@ -5,8 +5,7 @@ import MIndHub.HomeBanking.dtosAndRecords.ClientDTO;
 import MIndHub.HomeBanking.dtosAndRecords.ClientRecord;
 import MIndHub.HomeBanking.models.Account;
 import MIndHub.HomeBanking.models.Client;
-import MIndHub.HomeBanking.services.AccountService;
-import MIndHub.HomeBanking.services.ClientService;
+import MIndHub.HomeBanking.services.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,9 +23,16 @@ import java.util.stream.Collectors;
 public class ClientController {
 
     @Autowired
+    private LoanService loanService;
+    @Autowired
     private ClientService clientService;
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private TransactionService transactionService;
+
+    @Autowired
+    private ClientLoanService clientLoanService;
     @Autowired
     private PasswordEncoder passwordEncoder;
 

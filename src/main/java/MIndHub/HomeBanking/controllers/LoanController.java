@@ -6,8 +6,6 @@ import MIndHub.HomeBanking.dtosAndRecords.LoanApplicationDTO;
 import MIndHub.HomeBanking.dtosAndRecords.LoanDTO;
 import MIndHub.HomeBanking.dtosAndRecords.NewLoanDTO;
 import MIndHub.HomeBanking.models.*;
-import MIndHub.HomeBanking.repositories.LoanRepository;
-import MIndHub.HomeBanking.repositories.TransactionRepository;
 import MIndHub.HomeBanking.services.*;
 import MIndHub.HomeBanking.services.Math.CardUtils;
 import jakarta.transaction.Transactional;
@@ -94,7 +92,7 @@ public class LoanController {
 
         Loan loan = optionalLoan.get();
 
-        if (!accountService.accountExistByNumber(loanApplicationDTO.getAccountNumber())) {
+        if (accountService.accountExistByNumber(loanApplicationDTO.getAccountNumber())) {
             return new ResponseEntity<>("The account does not exist", HttpStatus.FORBIDDEN);
         }
 
@@ -168,7 +166,7 @@ public class LoanController {
         if (!clientService.clientExistsByEmail(email)){
             return new ResponseEntity<>("The client dosent exist", HttpStatus.FORBIDDEN);
         }
-        if (!accountService.accountExistByNumber(number)){
+        if (accountService.accountExistByNumber(number)){
             return new ResponseEntity<>("The account dosent exist", HttpStatus.FORBIDDEN);
         }
         if (amount <= 0){

@@ -56,10 +56,10 @@ public class TransactionController {
         if (accountNumberOrigin.equals(accountNumberSend)){
             return new ResponseEntity<>("The originating account can`t be the same as the account of the receiver", HttpStatus.FORBIDDEN);
         }
-        if (!accountService.accountExistByNumber(accountNumberOrigin)) {
+        if (accountService.accountExistByNumber(accountNumberOrigin)) {
             return new ResponseEntity<>("The origin account number does not exist", HttpStatus.FORBIDDEN);
         }
-        if (!accountService.accountExistByNumber(accountNumberSend)){
+        if (accountService.accountExistByNumber(accountNumberSend)){
             return new ResponseEntity<>("The account to you want to send not exist", HttpStatus.FORBIDDEN);
         }
         if (amount <= 0){

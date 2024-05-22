@@ -6,8 +6,7 @@ import MIndHub.HomeBanking.models.CardColor;
 import MIndHub.HomeBanking.models.CardType;
 import MIndHub.HomeBanking.models.Client;
 import MIndHub.HomeBanking.repositories.CardRepository;
-import MIndHub.HomeBanking.services.AccountService;
-import MIndHub.HomeBanking.services.ClientService;
+import MIndHub.HomeBanking.services.*;
 import MIndHub.HomeBanking.services.Math.CardUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,11 +27,18 @@ public class CardController {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
+    private LoanService loanService;
+    @Autowired
     private ClientService clientService;
     @Autowired
     private AccountService accountService;
     @Autowired
-    private CardRepository cardRepository;
+    private TransactionService transactionService;
+    @Autowired
+    private CardService cardService;
+
+    @Autowired
+    private ClientLoanService clientLoanService;
 
 
 
@@ -71,7 +77,7 @@ public class CardController {
 
         client.addCard(card);
         clientService.save(client);
-        cardRepository.save(card);
+        cardService.saveCard(card);
 
         return new ResponseEntity<>("Card created successfully", HttpStatus.CREATED);
     }

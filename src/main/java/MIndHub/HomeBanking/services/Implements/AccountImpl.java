@@ -1,6 +1,5 @@
 package MIndHub.HomeBanking.services.Implements;
 
-import MIndHub.HomeBanking.dtosAndRecords.AccountDTO;
 import MIndHub.HomeBanking.models.Account;
 import MIndHub.HomeBanking.models.Client;
 import MIndHub.HomeBanking.repositories.AccountRepository;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class AccountImpl implements AccountService {
@@ -52,7 +50,12 @@ public class AccountImpl implements AccountService {
 
     @Override
     public boolean accountExistByNumber(String number) {
-        return accountRepository.existsByNumber(number);
+        return !accountRepository.existsByNumber(number);
+    }
+
+    @Override
+    public boolean accountExistByNumberAndClient(String number, Client client) {
+        return accountRepository.existsByNumberAndClient(number,client);
     }
 
 

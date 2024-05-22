@@ -4,21 +4,16 @@ import MIndHub.HomeBanking.Enums.AccountType;
 import MIndHub.HomeBanking.dtosAndRecords.AccountDTO;
 import MIndHub.HomeBanking.models.Account;
 import MIndHub.HomeBanking.models.Client;
+import MIndHub.HomeBanking.models.Transaction;
 import MIndHub.HomeBanking.repositories.AccountRepository;
-import MIndHub.HomeBanking.repositories.ClientRepository;
-import MIndHub.HomeBanking.services.AccountService;
-import MIndHub.HomeBanking.services.ClientService;
+import MIndHub.HomeBanking.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
 
-import java.net.http.HttpRequest;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -26,11 +21,16 @@ import java.util.stream.Collectors;
 @RequestMapping("/api")
 public class AccountController {
     @Autowired
-    private AccountRepository accountRepository;
+    private LoanService loanService;
+    @Autowired
+    private ClientService clientService;
     @Autowired
     private AccountService accountService;
     @Autowired
-    private ClientService clientService;
+    private TransactionService transactionService;
+
+    @Autowired
+    private ClientLoanService clientLoanService;
 
 
     //---------------------------------------- GETS ------------------------------------
@@ -100,5 +100,42 @@ public class AccountController {
         return new ResponseEntity<>("Account created success!", HttpStatus.CREATED);
     }
 
+    @PatchMapping("/clients/remove/account")
+    public ResponseEntity<?> removeAccount (Authentication authentication,
+                                            @RequestParam String number,
+                                            @RequestParam boolean isActive){
+        String email = authentication.getName();
+        Client client = clientService.findClientByEmail(email);
+        if (!clientService.clientExistsByEmail(email)){
+            return new ResponseEntity<>("The client  dose not exist", HttpStatus.FORBIDDEN);
+        }
+        if (!isActive){
+            return new ResponseEntity<>("The Account is INACTIVE", HttpStatus.FORBIDDEN);
+        }
+        if (accountService.accountExistByNumber(number)){
+            return new ResponseEntity<>("The account does not exist", HttpStatus.FORBIDDEN);
+        }
+        if (!accountService.accountExistByNumberAndClient(number, client)){
+            return new ResponseEntity<>("The client is not the owner of the account", HttpStatus.FORBIDDEN);
+        }
 
+
+        Account account = accountService.findAccountByNumber(number);
+        if (account.getBalance() > 0 )
+        {
+
+            return new ResponseEntity<>("the balance be 0 to remove a account", HttpStatus.FORBIDDEN);
+        }
+
+        List<Transaction> transactions = transactionService.findAllTransactionsByAccount(account);
+
+        for (Transaction transaction : transactions){
+            transaction.setActive(false);
+
+            transactionService.saveTransaction(transaction);
+        }
+        account.setActive(false);
+        accountService.save(account);
+        return new ResponseEntity<>("Account remove success", HttpStatus.CREATED);
+    }
 }
