@@ -63,22 +63,22 @@ public class HomeBankingApplication {
 
 			//ClientLoans
 
-			ClientLoan clientLoan1MM = new ClientLoan(400000.00, 60, 0);
+			ClientLoan clientLoan1MM = new ClientLoan(4000.00,32,31, mortageLoan.getName(), true);
 
 			mortageLoan.addClientLoan(clientLoan1MM);
 			client1.addLoan(clientLoan1MM);
 
-			ClientLoan clientLoan2MM = new ClientLoan(500000.00, 12,0);
+			ClientLoan clientLoan2MM = new ClientLoan(500000.00, 12,0,personalLoan.getName(),true);
 
 			personalLoan.addClientLoan(clientLoan2MM);
 			client1.addLoan(clientLoan2MM);
 
-			ClientLoan clientLoan1DD = new ClientLoan(100000.00, 24,0);
+			ClientLoan clientLoan1DD = new ClientLoan(100000.00, 24,0, autoLoan.getName(), true);
 
 			personalLoan.addClientLoan(clientLoan1DD);
 			client2.addLoan(clientLoan1DD);
 
-			ClientLoan clientLoan2DD = new ClientLoan(200000.00, 36,0);
+			ClientLoan clientLoan2DD = new ClientLoan(200000.00, 36,0,mortageLoan.getName(), true);
 
 			autoLoan.addClientLoan(clientLoan2DD);
 			client2.addLoan(clientLoan2DD);

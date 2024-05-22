@@ -12,6 +12,7 @@ public class ClientLoan {
     private Double amount;
     private Integer payments;
     private Integer sold;
+    private boolean isActive;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
@@ -26,10 +27,12 @@ public class ClientLoan {
     public ClientLoan() {
     }
 
-    public ClientLoan(Double amount, Integer payments, Integer sold) {
+    public ClientLoan(Double amount, Integer payments, Integer sold, String loanName,boolean isActive ) {
         this.amount = amount;
         this.payments = payments;
         this.sold = sold;
+        this.loanName = loanName;
+        this.isActive = isActive;
     }
 
     public String getId() {
@@ -76,4 +79,19 @@ public class ClientLoan {
         this.loan = loan;
     }
 
+    public String getLoanName() {
+        return loanName;
+    }
+
+    public void setLoanName(String loanName) {
+        this.loanName = loanName;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
 }
