@@ -8,8 +8,8 @@ import java.time.LocalDateTime;
 @Entity
 public class Transaction {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private TransactionType type;
     private Double amount;
@@ -33,7 +33,7 @@ public class Transaction {
         this.isActive = isActive;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 

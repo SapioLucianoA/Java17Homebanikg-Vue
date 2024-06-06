@@ -54,7 +54,7 @@ public class LoanController {
     }
 
     @PostMapping("/loan/new")
-    public ResponseEntity<Object> newLoan (Authentication authentication, @RequestBody NewLoanDTO loanDTO){
+    public ResponseEntity<Object> newLoan (Authentication authentication, @RequestBody NewLoanDTO newLoanDTO){
         String email = authentication.getName();
 
         Client client = clientService.findClientByEmail(email);
@@ -62,19 +62,19 @@ public class LoanController {
         if (!client.isAdmin()){
             return new ResponseEntity<>("method only for ADMIN",HttpStatus.FORBIDDEN);
         }
-        if (loanDTO.getName().isBlank()){
+        if (newLoanDTO.getName().isBlank()){
             return new ResponseEntity<>("please complete the name", HttpStatus.FORBIDDEN);
         }
-        if (loanDTO.getMaxAmount().isNaN()){
+        if (newLoanDTO.getMaxAmount().isNaN()){
             return new ResponseEntity<>("please complete the amount", HttpStatus.FORBIDDEN);
         }
-        if (loanDTO.getMaxAmount() <= 0){
+        if (newLoanDTO.getMaxAmount() <= 0){
             return new ResponseEntity<>("The Max Amount cant be 0 or less", HttpStatus.FORBIDDEN);
         }
-        if (loanDTO.getPayment().isEmpty()){
+        if (newLoanDTO.getPayment().isEmpty()){
             return new ResponseEntity<>("Please complete the list od payment", HttpStatus.FORBIDDEN);
         }
-        Loan loan = new Loan(loanDTO.getName(), loanDTO.getMaxAmount(), loanDTO.getPayment());
+        Loan loan = new Loan(newLoanDTO.getName(), newLoanDTO.getMaxAmount(), newLoanDTO.getPayment());
 
         loanService.saveLoan(loan);
         return new ResponseEntity<>("New Loan created", HttpStatus.CREATED);
@@ -110,7 +110,7 @@ public class LoanController {
         Account loanAccount = accountService.findAccountByNumber(loanApplicationDTO.getAccountNumber());
 
         if (!loanAccount.getClient().equals(client)){
-            return new ResponseEntity<>("The client is not the propiertary of the account", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("The client is not the proprietary of the account", HttpStatus.FORBIDDEN);
         }
         if (!loan.getPayment().contains(loanApplicationDTO.getPayment())){
             return new ResponseEntity<>("The payment does not exist ", HttpStatus.FORBIDDEN);

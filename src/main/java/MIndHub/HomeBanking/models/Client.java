@@ -97,6 +97,7 @@ public class Client {
         this.loans = loans;
     }
 
+
     public Set<Card> getCards() {
         return cards;
     }
@@ -118,4 +119,5 @@ public class Client {
         card.setClient(this);
         this.cards.add(card);
     }
+
 }

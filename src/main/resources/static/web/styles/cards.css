@@ -36,7 +36,9 @@ $air-force-blue: rgba(75, 136, 162, 1);
   flex-direction: column;
 
 }
-
+.remove{
+  display: none!important;
+}
 .credit-cards-container {
   width: 100%;
   display: flex;
@@ -401,7 +403,86 @@ pointer-events: none;
   background-color: rgb(129, 184, 120);
 }
 
+/* BUTTTON REMOVE */
+.card.front-face.silver button{
+  display: none;
+  position:absolute;
+  z-index: 2;
+  transition: .2s;
+  width: 30px;
+  height: 25px;
+  border-radius: 1rem;
+  padding-bottom: 2px;
+  background-color:  #C0C0C0;
+  outline: none;
+  border: none;
+}
+.card.front-face.silver:hover button{
+  display: block;
+  bottom: 0;
+  left: 0;
+}
+.card.front-face.silver button:hover{
+  transform: scale(1.2,1.2);
+}
+.card.front-face.silver button:active{
+  background-color: black;
+  color: white;
+}
 
+.card.front-face.gold button{
+  display: none;
+  position:absolute;
+  z-index: 2;
+  transition: .2s;
+  width: 30px;
+  height: 25px;
+  border-radius: 1rem;
+  padding-bottom: 2px;
+  background-color:  #C0C0C0;
+  outline: none;
+  border: none;
+}
+.card.front-face.gold:hover button{
+  display: block;
+  bottom: 0;
+  left: 0;
+}
+.card.front-face.gold button:hover{
+  transform: scale(1.2,1.2);
+}
+.card.front-face.gold button:active{
+  background-color: black;
+  color: white;
+}
+
+/* platinum button remove */
+
+.card.front-face.platinum button{
+  display: none;
+  position:absolute;
+  z-index: 2;
+  transition: .2s;
+  width: 30px;
+  height: 25px;
+  border-radius: 1rem;
+  padding-bottom: 2px;
+  background-color:  #FFD700;
+  outline: none;
+  border: none;
+}
+.card.front-face.platinum:hover button{
+  display: block;
+  bottom: 0;
+  left: 0;
+}
+.card.front-face.platinum button:hover{
+  transform: scale(1.2,1.2);
+}
+.card.front-face.platinum button:active{
+  background-color: black;
+  color: white;
+}
 
 @media screen and (min-width: 450px){
 

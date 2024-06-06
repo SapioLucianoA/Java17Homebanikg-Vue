@@ -82,5 +82,29 @@ public class CardController {
         return new ResponseEntity<>("Card created successfully", HttpStatus.CREATED);
     }
 
+    @PatchMapping("/client/remove/card")
+    public ResponseEntity<Object> removeCard(Authentication authentication, @RequestParam String number,
+                                             @RequestParam boolean isActive){
+        String email = authentication.getName();
+        Client client = clientService.findClientByEmail(email);
+        if (!cardService.existCardByNumber(number)){
+            return new ResponseEntity<>("The Card dosent exist", HttpStatus.FORBIDDEN);
+        }
+        if (!clientService.clientExistsByEmail(email)){
+            return new ResponseEntity<>("The CLient  dosent exist", HttpStatus.FORBIDDEN);
+        }
+        if (!cardService.existCardByNumberAndClient(number,client)){
+            return new ResponseEntity<>("The client is not the CardHolder", HttpStatus.FORBIDDEN);
+        }
+        if (!isActive){
+            return new ResponseEntity<>("The Card is INACTIVE", HttpStatus.FORBIDDEN);
+        }
+        Card cardR = cardService.findCardByNumber(number);
 
+        cardR.setActive(false);
+
+        cardService.saveCard(cardR);
+
+        return new ResponseEntity<>("The Card is removed for your account", HttpStatus.CREATED);
+    }
 }

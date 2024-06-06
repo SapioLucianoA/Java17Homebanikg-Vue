@@ -20,14 +20,23 @@ public class Authorization {
 
         http.authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/web/pages/admin.html").hasAuthority("ADMIN")
+                .requestMatchers("/web/pages/new-loan").hasAuthority("ADMIN")
+                .requestMatchers("/h2-console/**").hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.PATCH, "/client/admin").hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/get/accounts", "/api/clients","/api/loans","/api/get/transactions").hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.POST,"/api/client/admin","/api/loan/new","/delete/client/admin").hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.POST,"/api/accounts/{accountId}","/api/clients/current/accounts","/api/clients/current/accounts","/api/loan","/api/client/pay","/api/transactions").authenticated()
+                .requestMatchers(HttpMethod.PATCH, "/api/clients/remove/account","/api/client/remove/card").authenticated()
+                .requestMatchers(HttpMethod.GET,"/api/clients/current/cards","/api/clients/current").authenticated()
                 .requestMatchers("/web/pages/**").authenticated()
 
 
                 //permit all web
                 .requestMatchers("/web/assets/img/**", "/web/pages/**", "web/styles/**","/web/javascript/**","/web/index.html").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/login").permitAll()
-                .requestMatchers("/api/login").permitAll()
-                .anyRequest().permitAll());
+                .requestMatchers(HttpMethod.POST, "/api/login","/api/client").permitAll()
+                .requestMatchers("/api/logout").permitAll()
+
+                .anyRequest().authenticated());
 
         http.csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.disable());
 

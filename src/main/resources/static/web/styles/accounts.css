@@ -383,7 +383,10 @@ $air-force-blue: rgba(75, 136, 162, 1);
   color: rgba(114, 59, 13, 1);
   pointer-events: none;
 }
-
+h3{
+  color:rgba(114, 59, 13, 1) ;
+  text-align: center;
+}
 .svg-plus{
   width: 100px;
   height: 100px;
@@ -402,6 +405,66 @@ $air-force-blue: rgba(75, 136, 162, 1);
   color:rgba(114, 59, 13, 1) ;
   background-color: rgb(129, 184, 120);
 }
+/* BUTTTON REMOVE */
+.div-account.common-account button{
+  display: none;
+  position:absolute;
+  z-index: 2;
+  transition: .2s;
+  width: 35px;
+  height: 30px;
+  border-radius: 1rem;
+
+  background-color:  rgba(75, 136, 162, 1);
+  outline: none;
+  border: none;
+}
+.div-account.common-account:hover button{
+  display: block;
+  position:absolute;
+  bottom: 0;
+  right: 5px;
+  z-index: 2;
+
+}
+.div-account button:hover{
+  transform: scale(1.2,1.2);
+}
+.div-account button:active{
+  background-color: black;
+  color: white;
+}
+
+.div-account.saved-account button{
+  display: none;
+  position:absolute;
+  z-index: 2;
+  transition: .2s;
+  width: 35px;
+  height: 30px;
+  border-radius: 1rem;
+
+  background-color: rgb(124, 231, 107);
+  outline: none;
+  border: none;
+}
+.div-account.saved-account:hover button{
+  display: block;
+  position:absolute;
+  bottom: 0;
+  right: 5px;
+  z-index: 2;
+
+}
+.div-account.saved-account button:hover{
+  transform: scale(1.2,1.2);
+}
+.div-account.saved-account button:active{
+  background-color: black;
+  color: white;
+}
+
+
 @media screen and (min-width: 550px) and (max-width: 780px) {
   .div-accounts{
     flex-direction: row;

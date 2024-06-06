@@ -1,6 +1,7 @@
 package MIndHub.HomeBanking.controllers;
 
 import MIndHub.HomeBanking.Enums.AccountType;
+import MIndHub.HomeBanking.dtosAndRecords.AdminRecord;
 import MIndHub.HomeBanking.dtosAndRecords.ClientDTO;
 import MIndHub.HomeBanking.dtosAndRecords.ClientRecord;
 import MIndHub.HomeBanking.models.Account;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -56,6 +58,12 @@ public class ClientController {
 
     }
 
+    @GetMapping("/client/admin/{clientEmail}")
+    public ClientDTO clientMod(@PathVariable String clientEmail){
+
+        Client client = clientService.findClientByEmail(clientEmail);
+        return new ClientDTO(client);
+    }
 
     //------------------------------ POST -------------------------------------------
 
@@ -101,30 +109,89 @@ public class ClientController {
 
     // New Client ADMIN
     @PostMapping("/client/admin")
-    public ResponseEntity<Object> createAdmin(@RequestBody ClientRecord clientRecord) {
+    public ResponseEntity<Object> createAdmin(@RequestBody AdminRecord adminRecord, Authentication authentication) {
 
-        if (clientService.clientExistsByEmail(clientRecord.email())) {
+        Client clientAdmin = clientService.findClientByEmail(authentication.getName());
+
+        if (!clientAdmin.isAdmin()){
+            return new ResponseEntity<>("method only for ADMIN",HttpStatus.FORBIDDEN);
+        }
+
+        if (clientService.clientExistsByEmail(adminRecord.email())) {
             return new ResponseEntity<>("email already in use", HttpStatus.FORBIDDEN);
         }
 
-        if (clientRecord.name().isBlank()) {
+        if (adminRecord.name().isBlank()) {
             return new ResponseEntity<>("Missing Name", HttpStatus.FORBIDDEN);
         }
-        if (clientRecord.lastName().isBlank()) {
+        if (adminRecord.lastName().isBlank()) {
             return new ResponseEntity<>("Missing Last Name", HttpStatus.FORBIDDEN);
         }
-        if (clientRecord.email().isBlank()) {
+        if (adminRecord.email().isBlank()) {
             return new ResponseEntity<>("Missing Email", HttpStatus.FORBIDDEN);
         }
-        if (clientRecord.password().isBlank()) {
+        if (adminRecord.password().isBlank()) {
             return new ResponseEntity<>("Missing Password", HttpStatus.FORBIDDEN);
+        }
+        if ( !clientService.passwordValid(adminRecord.password())){
+            return new ResponseEntity<>("The password needs 8 characters minimum, 1 (one) Uppercase, 1 (one) Number", HttpStatus.FORBIDDEN );
         }
 
 
 
-
-        Client client = new Client(clientRecord.name(), clientRecord.lastName(), passwordEncoder.encode(clientRecord.password()), clientRecord.email(), true);
+        Client client = new Client(adminRecord.name(), adminRecord.lastName(), passwordEncoder.encode(adminRecord.password()), adminRecord.email(), adminRecord.isAdmin());
         clientService.save(client);
-        return new ResponseEntity<>("new admin create", HttpStatus.CREATED);
+
+        return new ResponseEntity<>("new Client created", HttpStatus.CREATED);
     };
+
+    @PatchMapping("/client/admin")
+    public ResponseEntity<?> patchClient(@RequestBody ClientRecord clientRecord){
+
+        if (clientRecord.name().isBlank()){
+            return new ResponseEntity<>("Missing Name or have spaces", HttpStatus.FORBIDDEN);
+        }
+        if (clientRecord.lastName().isBlank()){
+            return new ResponseEntity<>("Missing last name or have spaces",HttpStatus.FORBIDDEN);
+        }
+        if (clientRecord.password().isBlank()){
+            return new ResponseEntity<>("Missing password or have spaces", HttpStatus.FORBIDDEN);
+        }
+        if (!clientService.passwordValid(clientRecord.password())) {
+            return new ResponseEntity<>("The password needs 8 characters minimum, 1 (one) Uppercase, 1 (one) Number", HttpStatus.FORBIDDEN );
+        }
+        if (clientRecord.email().isBlank()){
+            return new ResponseEntity<>("Missing email or have spaces", HttpStatus.FORBIDDEN);
+        }
+
+        Client client = clientService.findClientByEmail(clientRecord.email());
+
+        client.setEmail(clientRecord.email());
+        client.setName(clientRecord.name());
+        client.setLastName(clientRecord.lastName());
+        client.setPassword(clientRecord.password());
+
+        clientService.save(client);
+        return new ResponseEntity<>("CLient Update succes", HttpStatus.OK);
+    }
+
+    @PostMapping("/delete/client/admin")
+    public ResponseEntity<?> deleteClient(@RequestParam String email, Authentication authentication){
+        Client client = clientService.findClientByEmail(email);
+        Set<Account> clientAccounts = client.getAccountSet();
+        if (authentication.getName().equals(email)){
+            return new ResponseEntity<>("cant delete yourself", HttpStatus.FORBIDDEN);
+        }
+        for (Account account : clientAccounts) {
+            if (account.getBalance() > 0) {
+                // Saldo mayor que 0: denegar eliminar cliente
+                return new ResponseEntity<>("The client cant be delete, have accounts with money", HttpStatus.FORBIDDEN);
+            }
+        }
+
+// Todos los saldos son 0: proceder con la eliminación del cliente
+        clientService.deleteClient(client);
+        return new ResponseEntity<>("Client delete succes", HttpStatus.OK);
+
+    }
 }

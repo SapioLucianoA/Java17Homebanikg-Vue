@@ -16,4 +16,6 @@ public interface ClientService {
     boolean clientExistsByEmail(String email);
 
     boolean passwordValid (String password);
+
+    void deleteClient(Client client);
 }

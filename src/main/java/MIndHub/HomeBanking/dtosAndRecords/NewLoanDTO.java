@@ -12,10 +12,10 @@ public class NewLoanDTO {
     public NewLoanDTO() {
     }
 
-    public NewLoanDTO(Loan loan){
-        name = loan.getName();
-        maxAmount = loan.getMaxAmount();
-        payment = loan.getPayment();
+    public NewLoanDTO(String name, Double  maxAmount, List<Integer> payment){
+        this.maxAmount = maxAmount;
+        this.name = name;
+        this.payment = payment;
     }
 
     public String getName() {
