@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../styles/header.css">
+  <link rel="stylesheet" href="../styles/loan-aplication.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+  <link rel="shortcut icon" href="../assets/img/Favicon.png" type="image/x-icon">
+
+  <title>CapyBank | New Loan</title>
+</head>
+
+<body>
+  <div id="app">
+    <div class="div-vh">
+      <div class="index-header">
+        <h1 class="d-none">Capybank</h1>
+        <img src="../assets/img/Capybank.png" alt="capybank logo" class="logo align-self-center ms-1">
+        <nav class="navbar navbar-expand-sm ">
+          <div class="container-fluid me-1">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="../index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="./accounts.html">Accounts</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="./cards.html">Cards</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="./transfer.html">Send</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#" @click="logOut">Log Out</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div class="div-formulary">
+        <form @submit.prevent="sendLoan" class="formulary">
+          <h2 class="">Select your Loan</h2>
+
+          <!-- radio -->
+          <div class="form-radios">
+
+            <div v-for="loan in loans" :key="loan.id" class="radios-radio">
+              <input class="form-check-input" type="radio" name="loanRadio" :id="loan.id" :value="loan.id"
+                v-model="selectedLoan">
+              <label class="form-check-label ms-2" :for="loan.id">
+                {{ loan.name }}
+              </label>
+            </div>
+          </div>
+
+          <!-- Select -->
+          <div v-if="selectedLoan" class="select-form">
+            <label for="paymentSelect">number of payments:</label>
+            <select class="form-select" id="paymentSelect" v-model="payment">
+              <option v-for="payment in getLoanById(selectedLoan).payment" :key="payment" :value="payment">
+                {{ payment }}
+              </option>
+            </select>
+          </div>
+
+          <!-- input -->
+          <div class="input-box">
+            <input type="text" class="form-control" aria-label="Max Amount" id="Max-Amount" :value="selectedLoanAmount"
+              placeholder="0000.00" disabled>
+            <label for="Max-Amount"> Max Amount </label>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-currency-dollar" viewBox="0 0 16 16">
+              <path
+                d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73z" />
+            </svg>
+          </div>
+
+          <div class="input-box">
+            <input id="amount" type="text" class="" aria-label="Amount to Transfer" placeholder="0000.00"
+              v-model="amount" required>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-currency-dollar" viewBox="0 0 16 16">
+              <path
+                d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73z" />
+            </svg>
+            <label for="amount">Ammount to Transfer</label>
+          </div>
+
+          <h2 class="">Select your account to deposit the Loan</h2>
+
+          <!-- radio -->
+          <div class="form-radios">
+            <div v-for="account in accounts" :key="account.number" class="radios-radio">
+              <input class="form-check-input" type="radio" :id="account.number" :value="account.number"
+                v-model="accountNumber">
+              <label class="form-check-label ms-2" :for="account.number">{{ account.number }}</label>
+            </div>
+          </div>
+          <button type="submit" class="button">Create loan</button>
+        </form>
+      </div>
+
+
+      <div class="loanCreated">
+
+          <table>
+            <thead>
+              <tr>
+                <th colspan="2" class="text-center">Your Loan:</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Loan type:</th>
+                <td v-if="selectedLoan">{{ getLoanById(selectedLoan).name }}</td>
+              </tr>
+              <tr>
+                <td>Amount:</th>
+                <td v-if="amount"> {{ Number(showIncrement()).toLocaleString('de-DE')}}</td>
+              <tr>
+                <td>Account number:</th>
+                <td v-if="accountNumber">{{ accountNumber }}</td>
+              <tr>
+                <td>payments:</th>
+                <td v-if="payment">{{ payment }}</td>
+              <tr>
+                <td>total for payment:</th>
+                <td>{{ (showIncrement() / payment).toLocaleString('de-DE') }}</td>
+
+              </tr>
+
+            </tbody>
+          </table>
+
+      </div>
+    </div>
+
+
+  </div>
+
+
+
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="../javascript/loan-aplication.js"></script>
+
+</html>
