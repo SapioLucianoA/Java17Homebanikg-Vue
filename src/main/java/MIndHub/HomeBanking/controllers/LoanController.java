@@ -2,6 +2,7 @@ package MIndHub.HomeBanking.controllers;
 
 
 import MIndHub.HomeBanking.Enums.TransactionType;
+import MIndHub.HomeBanking.dtosAndRecords.ClientLoanDTO;
 import MIndHub.HomeBanking.dtosAndRecords.LoanApplicationDTO;
 import MIndHub.HomeBanking.dtosAndRecords.LoanDTO;
 import MIndHub.HomeBanking.dtosAndRecords.NewLoanDTO;
@@ -51,6 +52,19 @@ public class LoanController {
 
 
         return loanDTOS;
+    }
+    @GetMapping("/loans/{clientLoanId}")
+    public ResponseEntity<?> getClientLoan(@PathVariable String clientLoanId, Authentication authentication){
+        String email = authentication.getName();
+
+        Client client = clientService.findClientByEmail(email);
+
+        ClientLoan clientLoan = clientLoanService.findClientLoanByClientIdAndLoanId(client.getId(), clientLoanId);
+
+        if (!client.getLoans().contains(clientLoan)) {
+            return new ResponseEntity<>("this loan is not yours", HttpStatus.FORBIDDEN);        }
+
+        return new ResponseEntity<>(new ClientLoanDTO(clientLoan), HttpStatus.I_AM_A_TEAPOT);
     }
 
     @PostMapping("/loan/new")

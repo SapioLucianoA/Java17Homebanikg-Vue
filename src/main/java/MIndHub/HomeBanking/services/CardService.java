@@ -17,5 +17,6 @@ public interface CardService {
     boolean existCardByNumberAndClient(String number, Client client);
 
     Card findCardByNumber (String number);
+
     boolean existCardByClientColorTypeAndIsActive (Client client, CardColor color, CardType type, boolean isActive );
 }

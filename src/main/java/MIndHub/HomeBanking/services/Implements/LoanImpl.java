@@ -1,6 +1,9 @@
 package MIndHub.HomeBanking.services.Implements;
 
+import MIndHub.HomeBanking.models.Client;
+import MIndHub.HomeBanking.models.ClientLoan;
 import MIndHub.HomeBanking.models.Loan;
+import MIndHub.HomeBanking.repositories.ClientLoanRepository;
 import MIndHub.HomeBanking.repositories.LoanRepository;
 import MIndHub.HomeBanking.services.LoanService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +15,8 @@ import java.util.Optional;
 public class LoanImpl implements LoanService {
     @Autowired
     private LoanRepository loanRepository;
-
+    @Autowired
+    private ClientLoanRepository clientLoanRepository;
     @Override
     public Optional<Loan> findLoanById(String id) {
         return loanRepository.findById(id);
@@ -30,7 +34,9 @@ public class LoanImpl implements LoanService {
 
     @Override
     public Loan findLoanByName(String name) {
-        return null;
+        return loanRepository.findLoanByName(name);
     }
+
+
 
 }

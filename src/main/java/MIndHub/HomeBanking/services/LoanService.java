@@ -1,5 +1,7 @@
 package MIndHub.HomeBanking.services;
 
+import MIndHub.HomeBanking.models.Client;
+import MIndHub.HomeBanking.models.ClientLoan;
 import MIndHub.HomeBanking.models.Loan;
 
 import java.util.List;

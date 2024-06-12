@@ -31,11 +31,21 @@
                 <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
-                <!-- <li class="nav-item">
-                  <a class="nav-link" href="#">Accounts</a>
-                </li> -->
                 <li class="nav-item">
-                  <a class="nav-link" href="./pages/login.html">Sing In</a>
+                  <a class="nav-link" href="./pages/accounts.html" v-if="existClient(client)">Accounts</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="./pages/cards.html" v-if="existClient(client)">Cards</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="./pages/transfer.html" v-if="existClient(client)">Send</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#" v-if="existClient(client)" @click="logOut">Log Out</a>
+                </li>
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="./pages/login.html"  v-if="!existClient(client)">Sing In</a>
                 </li>
               </ul>
             </div>
@@ -48,7 +58,7 @@
       <div class="index-div-principal">
         <div class="index-cards">
           <div class="d-flex justify-content-center align-items-center">
-            <img src="./assets/img/banner2.jpg" alt="hombre viendo celular en el bosque"
+            <img src="./assets/img/banner2.png" alt="hombre viendo celular en el bosque"
               class="index-cards-img rounded">
           </div>
           <div class="index-cards-text">

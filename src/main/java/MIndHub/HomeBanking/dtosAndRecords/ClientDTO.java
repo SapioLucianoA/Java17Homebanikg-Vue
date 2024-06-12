@@ -12,13 +12,14 @@ public class ClientDTO {
     private  String name, lastName, email;
     private Set<AccountDTO> accountSet;
     private Set<ClientLoanDTO> clientLoanSet;
-
+    private Set<CardDTO> cardDTOset;
     public ClientDTO(Client client) {
         this.name = client.getName();
         this.lastName = client.getLastName();
         this.email = client.getEmail();
-        this.accountSet = client.getAccountSet().stream().filter(account -> account.isActive() == true).map(account -> new AccountDTO(account)).collect(Collectors.toSet());
-        this.clientLoanSet = client.getLoans().stream().map(clientLoan -> new ClientLoanDTO(clientLoan)).collect(Collectors.toSet());
+        this.accountSet = client.getAccountSet().stream().filter(account -> account.isActive()).map(account -> new AccountDTO(account)).collect(Collectors.toSet());
+        this.clientLoanSet = client.getLoans().stream().filter(clientLoan -> clientLoan.isActive()).map(clientLoan -> new ClientLoanDTO(clientLoan)).collect(Collectors.toSet());
+        this.cardDTOset = client.getCards().stream().filter(card -> card.isActive()).map(card -> new CardDTO(card)).collect(Collectors.toSet());
     }
 
     public String getName() {
@@ -35,5 +36,9 @@ public class ClientDTO {
     }
     public Set<ClientLoanDTO> getClientLoanSet() {
         return clientLoanSet;
+    }
+
+    public Set<CardDTO> getCardDTOset() {
+        return cardDTOset;
     }
 }

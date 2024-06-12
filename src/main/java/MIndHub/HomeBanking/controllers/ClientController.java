@@ -182,14 +182,15 @@ public class ClientController {
         if (authentication.getName().equals(email)){
             return new ResponseEntity<>("cant delete yourself", HttpStatus.FORBIDDEN);
         }
+        if(client.isAdmin()){
+            return new ResponseEntity<>("you cant delete a Admin User", HttpStatus.FORBIDDEN);
+        }
         for (Account account : clientAccounts) {
             if (account.getBalance() > 0) {
-                // Saldo mayor que 0: denegar eliminar cliente
                 return new ResponseEntity<>("The client cant be delete, have accounts with money", HttpStatus.FORBIDDEN);
             }
         }
 
-// Todos los saldos son 0: proceder con la eliminación del cliente
         clientService.deleteClient(client);
         return new ResponseEntity<>("Client delete succes", HttpStatus.OK);
 

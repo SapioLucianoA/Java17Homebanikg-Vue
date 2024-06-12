@@ -66,17 +66,16 @@ createApp({
       )
       .catch(error => {
         if (error.response) {
-          // Mostrar mensaje de error al usuario
-          alert(error.response.status + " - " + error.response.data);
+            console.log(error.response.data);
+            alert(error.response.status + " " + error.response.data);
+            console.log(error.response.headers);
         } else if (error.request) {
-          // Mostrar mensaje de error al usuario
-          alert("Error en la solicitud. Inténtalo de nuevo más tarde.");
+            alert(error.request);
         } else {
-          // Mostrar mensaje de error al usuario
-          alert("Error desconocido. Inténtalo de nuevo más tarde.");
+            console.log('Error', error.message);
         }
         console.log(error.config);
-      });
+    });;
   },
   logOut() {
     // Send a POST request to the logout endpoint

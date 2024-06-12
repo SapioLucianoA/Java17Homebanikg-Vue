@@ -5,7 +5,6 @@ import MIndHub.HomeBanking.models.Card;
 import MIndHub.HomeBanking.models.CardColor;
 import MIndHub.HomeBanking.models.CardType;
 import MIndHub.HomeBanking.models.Client;
-import MIndHub.HomeBanking.repositories.CardRepository;
 import MIndHub.HomeBanking.services.*;
 import MIndHub.HomeBanking.services.Math.CardUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,20 +58,23 @@ public class CardController {
         Client client = clientService.findClientByEmail(email);
         Set<Card> cards = client.getCards();
 
-        // Obtén las tarjetas del cliente
+        //  all client cards
         long count = cards.stream().filter(card -> card.getType().equals(type)).filter(card -> card.isActive()).count();
-
-        // ya tenés 3 papu
+       //exist another card?
+        if (cardService.existCardByClientColorTypeAndIsActive(client,color,type,true)){
+            return new ResponseEntity<>("you have a card active with this color and type", HttpStatus.FORBIDDEN);
+        }
+        // all ready have 3 of this type
         if (count >= 3) {
             return new ResponseEntity<>("Client already has 3 cards of this type", HttpStatus.FORBIDDEN);
         }
-        // metodos de service y demas
+        // methods service and more
 
         String cvv = CardUtils.generateCVV();
         String number = CardUtils.generateCardNumber();
         String cardHolder = client.getLastName() + " " + client.getName();
 
-        //creacion y guardado
+        //created and saved
         Card card = new Card(type, color, cvv, cardHolder, number,LocalDate.now(),LocalDate.now().plusYears(5),true);
 
         client.addCard(card);

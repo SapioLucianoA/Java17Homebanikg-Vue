@@ -19,8 +19,9 @@ $air-force-blue: rgba(75, 136, 162, 1);
 
 
 .image-index{
-  width: 90%;
+  width: 97%;
   object-fit: cover;
+  height: 200px;
 }
 .index-div-principal{
   display: flex;
@@ -33,16 +34,15 @@ $air-force-blue: rgba(75, 136, 162, 1);
   display: flex;
   flex-direction: column;
   width: 95%;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin: 1rem .3rem 1rem .3rem;
   transition: 0.2s;
   justify-content: center;
+  align-items: center;
+  border-radius: 2rem;
 }
 .index-cards-img{
-  width: 100%;
-  height: 12rem;
+  width: 95%;
+  height: 10rem;
   margin-top: 1rem;
 }
 .index-cards-text{
