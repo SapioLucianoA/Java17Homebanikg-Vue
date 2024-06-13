@@ -20,7 +20,9 @@
 .formulary input.disabled{
   pointer-events: none;
 }
-
+.input-box .null{
+  pointer-events: none;
+}
 /* asdasdasdasdasd */
 .input-box input {
   width: 100%;

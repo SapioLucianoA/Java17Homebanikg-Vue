@@ -5,7 +5,6 @@ createApp({
     return {
       message: '',
       clients: [],
-      accounts: [],
       account: [],
       transactions:[],
     }
@@ -15,21 +14,14 @@ createApp({
   created () {
     let params = new URLSearchParams(window.location.search).get(`accountId`);
     console.log(params)
-    axios
-      .get('/api/clients/current')
-      .then(response => {
-        this.accounts = response.data.accountSet;  
-        this.account = this.accounts.find(account => String(account.id) === String(params));
-        console.log(this.account);
+    let url = `/api/accounts/${params}`
+    axios.get(url).then(response =>{
+      console.log(response.data)
+      this.account = response.data;
+      this.transactions = this.account.transactions;
 
-        this.transactions = this.account.transactions
-        console.log(this.transactions)
-
-        this.transactions.sort((a, b) => b.id - a.id)
-
-        this.checktransactions;
-      })
-    
+      this.checktransactions;
+    });
   },
   methods: {
     formatDate(dateString){

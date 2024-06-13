@@ -45,13 +45,13 @@ public class AccountController {
 
     //account for id
     @GetMapping("/accounts/{accountId}")
-    public ResponseEntity<?> getAccountById(@PathVariable String id, Authentication authentication){
+    public ResponseEntity<?> getAccountById(@PathVariable String accountId, Authentication authentication){
 
         String email = authentication.getName();
 
         Client client = clientService.findClientByEmail(email);
 
-        Account account = accountService.findAccountById(id);
+        Account account = accountService.findAccountById(accountId);
 
         if (!client.getAccountSet().contains(account)){
             return new ResponseEntity<>("No proprietary of the account", HttpStatus.NOT_FOUND);

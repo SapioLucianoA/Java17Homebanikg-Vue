@@ -23,11 +23,11 @@ public class Authorization {
                 .requestMatchers("/web/pages/new-loan").hasAuthority("ADMIN")
                 .requestMatchers("/h2-console/**").hasAuthority("ADMIN")
                 .requestMatchers(HttpMethod.PATCH, "/client/admin").hasAuthority("ADMIN")
-                .requestMatchers(HttpMethod.GET, "/api/get/accounts", "/api/clients","/api/loans","/api/get/transactions").hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/get/accounts", "/api/clients","/api/get/transactions").hasAuthority("ADMIN")
                 .requestMatchers(HttpMethod.POST,"/api/client/admin","/api/loan/new","/delete/client/admin").hasAuthority("ADMIN")
                 .requestMatchers(HttpMethod.POST,"/api/accounts/{accountId}","/api/clients/current/accounts","/api/clients/current/accounts","/api/loan","/api/client/pay","/api/transactions").authenticated()
                 .requestMatchers(HttpMethod.PATCH, "/api/clients/remove/account","/api/client/remove/card").authenticated()
-                .requestMatchers(HttpMethod.GET,"/api/clients/current/cards","/api/clients/current").authenticated()
+                .requestMatchers(HttpMethod.GET,"/api/clients/current/cards","/api/loans","/api/clients/current").authenticated()
                 .requestMatchers("/web/pages/**").authenticated()
 
 

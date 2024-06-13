@@ -389,20 +389,21 @@ pointer-events: none;
   height: 100px;
   margin-bottom: 2rem;
   margin-top: 2rem;
-  background-color: rgba(114, 59, 13, 1);
+  background-color:rgb(99, 163, 89);
   border-radius: 1.2rem;
-  color: rgb(129, 184, 120);
+  color:  rgba(241, 222, 222, 1);
   transition: 0.2s;
   cursor: pointer;
 }
 .svg-plus:hover{
   transform: scale(1.2,1.2);
+  background-color: rgb(27, 159, 7);
 }
 .svg-plus:active{
-  color:rgba(114, 59, 13, 1) ;
-  background-color: rgb(129, 184, 120);
+  color: rgb(27, 159, 7);;;;
+  background-color: black;
+  filter: drop-shadow(10px 10px 15px rgb(27, 159, 7));
 }
-
 /* BUTTTON REMOVE */
 .card.front-face.silver button{
   display: none;

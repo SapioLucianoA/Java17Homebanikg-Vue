@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ClientLoanRepository extends JpaRepository<ClientLoan, String> {
     boolean existsByClientAndLoanAndIsActive(Client client, Loan loan,boolean isActive);
 
-    ClientLoan findByClientIdAndLoanId(String ClientId, String LoanId);
+    ClientLoan findClientLoanByClientAndLoanNameAndIsActive(Client cLient, String name, boolean isActive);
 }

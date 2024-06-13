@@ -53,18 +53,26 @@ public class LoanController {
 
         return loanDTOS;
     }
+
     @GetMapping("/loans/{clientLoanId}")
     public ResponseEntity<?> getClientLoan(@PathVariable String clientLoanId, Authentication authentication){
         String email = authentication.getName();
 
         Client client = clientService.findClientByEmail(email);
 
-        ClientLoan clientLoan = clientLoanService.findClientLoanByClientIdAndLoanId(client.getId(), clientLoanId);
+
+        Optional<ClientLoan> optionalClientLoan = clientLoanService.findCLienLoanById(clientLoanId);
+        if (optionalClientLoan.isEmpty()){
+            return new ResponseEntity<>("ClientLoan does not exists", HttpStatus.FORBIDDEN);
+        }
+
+        ClientLoan clientLoan = optionalClientLoan.get();
 
         if (!client.getLoans().contains(clientLoan)) {
-            return new ResponseEntity<>("this loan is not yours", HttpStatus.FORBIDDEN);        }
+            return new ResponseEntity<>("this loan is not yours", HttpStatus.FORBIDDEN);
+        }
 
-        return new ResponseEntity<>(new ClientLoanDTO(clientLoan), HttpStatus.I_AM_A_TEAPOT);
+        return new ResponseEntity<>(new ClientLoanDTO(clientLoan), HttpStatus.OK);
     }
 
     @PostMapping("/loan/new")
@@ -173,8 +181,8 @@ public class LoanController {
         String email = authentication.getName();
 
         Client client = clientService.findClientByEmail(email);
-        Loan loan = loanService.findLoanByName(loanName);
-        ClientLoan clientLoan = clientLoanService.findClientLoanByClientIdAndLoanId(client.getId(), loan.getId());
+
+        ClientLoan clientLoan = clientLoanService.findClientLoanByClientAndLoanNameAndIsActive(client, loanName, true);
         Account account = accountService.findAccountByNumber(number);
 
         if (!clientService.clientExistsByEmail(email)){
@@ -204,6 +212,8 @@ public class LoanController {
 
 
         clientLoan.setSold(clientLoan.getSold() + 1);
+
+
 
         if (clientLoan.getPayments().equals(clientLoan.getSold())){
             clientLoan.setActive(false);

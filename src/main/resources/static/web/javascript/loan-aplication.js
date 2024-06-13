@@ -39,7 +39,10 @@ createApp({
       // Actualiza el campo "Max Amount" cuando cambie el préstamo seleccionado
       const LoanSelected = this.getLoanById(newValue);
       if (LoanSelected) {
-        this.selectedLoanAmount = LoanSelected.maxAmount;
+        this.selectedLoanAmount = LoanSelected.maxAmount.toLocaleString("en-US", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        }); ;
       } else {
         console.warn("Selected loan not found.");
         this.selectedLoanAmount = ""; // Otra opción si no se encuentra el préstamo

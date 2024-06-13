@@ -5,15 +5,16 @@ import MIndHub.HomeBanking.models.ClientLoan;
 import MIndHub.HomeBanking.models.Loan;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ClientLoanService {
-    ClientLoan findClientLoanByClientAndLoan (Client client, Loan loan);
+    ClientLoan findClientLoanByClientAndLoanNameAndIsActive (Client client, String name, boolean isActive);
 
     void saveClientLoan (ClientLoan clientLoan);
 
     List<ClientLoan> findAllClientLoans ();
 
-    ClientLoan findClientLoanByClientIdAndLoanId(String clientId, String loanId);
+    Optional<ClientLoan> findCLienLoanById(String id);
 
     boolean existClientLoanByClientLoanAndIsActive(Client client, Loan loan, boolean isActive);
 }

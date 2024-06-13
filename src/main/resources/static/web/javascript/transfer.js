@@ -26,7 +26,10 @@ createApp({
         // Find the selected account object based on the account number
         const selectedAccount = this.accounts.find(account => account.number === newValue);
         if (selectedAccount) {
-          this.originAmount = selectedAccount.balance; // Update the amount with the balance
+          this.originAmount = selectedAccount.balance.toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          }); // Update the amount with the balance
         } else {
           // Handle case where the account number doesn't match any existing account (optional)
           console.warn('Selected account not found.');

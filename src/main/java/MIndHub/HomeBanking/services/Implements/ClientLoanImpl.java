@@ -9,16 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class ClientLoanImpl implements ClientLoanService {
     @Autowired
     private ClientLoanRepository clientLoanRepository;
 
-    @Override
-    public ClientLoan findClientLoanByClientAndLoan(Client client, Loan loan) {
-        return null;
-    }
 
+    @Override
+    public ClientLoan findClientLoanByClientAndLoanNameAndIsActive(Client client, String name, boolean isActive) {
+        return clientLoanRepository.findClientLoanByClientAndLoanNameAndIsActive(client, name, isActive);
+    }
 
     @Override
     public void saveClientLoan(ClientLoan clientLoan) {
@@ -31,9 +33,10 @@ public class ClientLoanImpl implements ClientLoanService {
     }
 
     @Override
-    public ClientLoan findClientLoanByClientIdAndLoanId(String clientId, String loanId) {
-        return clientLoanRepository.findByClientIdAndLoanId(clientId, loanId);
+    public Optional<ClientLoan> findCLienLoanById(String id) {
+        return clientLoanRepository.findById(id);
     }
+
 
     @Override
     public boolean existClientLoanByClientLoanAndIsActive(Client client, Loan loan, boolean isActive) {
