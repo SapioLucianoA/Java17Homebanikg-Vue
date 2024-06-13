@@ -69,6 +69,7 @@
                 <span class="span-front5"></span>
                 <span class="span-front6"></span>
                 <span class="span-front7"></span>
+                <span class="span-front8" v-if="isExpired(today, card.thruDate)"></span>
 
                 <div class="card-logos">
                   <h3>Capybank</h3>
@@ -127,7 +128,7 @@
                 <span class="span-front5"></span>
                 <span class="span-front6"></span>
                 <span class="span-front7"></span>
-
+                <span class="span-front8" v-if="isExpired(today, card.thruDate)"></span>
                 <div class="card-logos">
                   <h3>Capybank</h3>
                   <img src="../assets/img/mastercard-logo.png" alt="mastercard-logo Master Card icono de Icons8"
