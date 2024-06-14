@@ -85,7 +85,7 @@ public class ClientController {
             return new ResponseEntity<>("Missing password or have spaces", HttpStatus.FORBIDDEN);
         }
         if (!clientService.passwordValid(clientRecord.password())) {
-            return new ResponseEntity<>("The password needs 8 characters minimum, 1 (one) Uppercase, 1 (one) Number", HttpStatus.FORBIDDEN );
+            return new ResponseEntity<>("The password needs 8 characters minimum, 1 (one) Uppercase, 1 (one) Number , 1 special character", HttpStatus.FORBIDDEN );
         }
         if (clientRecord.email().isBlank()){
             return new ResponseEntity<>("Missing email or have spaces", HttpStatus.FORBIDDEN);
