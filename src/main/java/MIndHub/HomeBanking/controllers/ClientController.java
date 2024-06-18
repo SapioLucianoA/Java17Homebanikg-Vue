@@ -134,7 +134,7 @@ public class ClientController {
             return new ResponseEntity<>("Missing Password", HttpStatus.FORBIDDEN);
         }
         if ( !clientService.passwordValid(adminRecord.password())){
-            return new ResponseEntity<>("The password needs 8 characters minimum, 1 (one) Uppercase, 1 (one) Number", HttpStatus.FORBIDDEN );
+            return new ResponseEntity<>("The password needs 8 characters minimum, 1 (one) Uppercase, 1 (one) Number, 1 (one) special character", HttpStatus.FORBIDDEN );
         }
 
 
@@ -158,7 +158,7 @@ public class ClientController {
             return new ResponseEntity<>("Missing password or have spaces", HttpStatus.FORBIDDEN);
         }
         if (!clientService.passwordValid(clientRecord.password())) {
-            return new ResponseEntity<>("The password needs 8 characters minimum, 1 (one) Uppercase, 1 (one) Number", HttpStatus.FORBIDDEN );
+            return new ResponseEntity<>("The password needs 8 characters minimum, 1 (one) Uppercase, 1 (one) Number, 1 (one) special character", HttpStatus.FORBIDDEN );
         }
         if (clientRecord.email().isBlank()){
             return new ResponseEntity<>("Missing email or have spaces", HttpStatus.FORBIDDEN);
@@ -172,7 +172,7 @@ public class ClientController {
         client.setPassword(clientRecord.password());
 
         clientService.save(client);
-        return new ResponseEntity<>("CLient Update succes", HttpStatus.OK);
+        return new ResponseEntity<>("Client Update success", HttpStatus.OK);
     }
 
     @PostMapping("/delete/client/admin")
@@ -190,9 +190,12 @@ public class ClientController {
                 return new ResponseEntity<>("The client cant be delete, have accounts with money", HttpStatus.FORBIDDEN);
             }
         }
+        for (Account account : clientAccounts){
+            accountService.deleteAccount(account);
+        }
 
         clientService.deleteClient(client);
-        return new ResponseEntity<>("Client delete succes", HttpStatus.OK);
+        return new ResponseEntity<>("Client delete success", HttpStatus.OK);
 
     }
 }

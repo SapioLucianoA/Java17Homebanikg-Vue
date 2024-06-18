@@ -17,4 +17,5 @@ public interface AccountService {
     String generateAccountNumber();
     boolean accountExistByNumber(String number);
     boolean accountExistByNumberAndClient(String number, Client client);
+    void deleteAccount(Account account);
 }

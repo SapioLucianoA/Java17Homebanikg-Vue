@@ -73,7 +73,25 @@ createApp({
                 .then(response => {
                     console.log(response)
                     alert("register succes! thanks to be capybara")
-                    this.changeActive();
+
+                    axios.post('/api/login', `email=${this.clientRecord.email}&password=${this.clientRecord.password}`)
+                    .then(response => {
+                        console.log(response)
+    
+                        window.location.href = `/web/pages/accounts.html`;
+                    })
+                    .catch(error => {
+                        if (error.response) {
+                            console.log(error.response.data);
+                            alert(error.response.status + " " + error.response.data);
+                            console.log(error.response.headers);
+                        } else if (error.request) {
+                            alert(error.request);
+                        } else {
+                            console.log('Error', error.message);
+                        }
+                        console.log(error.config);
+                    });;
                 })
                 .catch(error => {
                     if (error.response) {

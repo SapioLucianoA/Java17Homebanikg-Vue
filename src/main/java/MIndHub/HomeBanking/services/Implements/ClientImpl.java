@@ -57,6 +57,23 @@ public class ClientImpl implements ClientService {
         specialChars.add('&');
         specialChars.add('¡');
         specialChars.add('¿');
+        specialChars.add(',');
+        specialChars.add('.');
+        specialChars.add('>');
+        specialChars.add('<');
+        specialChars.add('ª');
+        specialChars.add('[');
+        specialChars.add('}');
+        specialChars.add(']');
+        specialChars.add('+');
+        specialChars.add('*');
+        specialChars.add('{');
+        specialChars.add('~');
+        specialChars.add('€');
+        specialChars.add('¬');
+        specialChars.add('º');
+        specialChars.add(':');
+        specialChars.add(';');
 
         for (char i : password.toCharArray()){
             if (Character.isLowerCase(i)){

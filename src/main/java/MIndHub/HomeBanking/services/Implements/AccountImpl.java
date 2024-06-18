@@ -58,5 +58,10 @@ public class AccountImpl implements AccountService {
         return accountRepository.existsByNumberAndClient(number,client);
     }
 
+    @Override
+    public void deleteAccount(Account account) {
+        accountRepository.delete(account);
+    }
+
 
 }
