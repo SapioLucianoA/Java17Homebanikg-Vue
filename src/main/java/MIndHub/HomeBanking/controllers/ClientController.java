@@ -11,6 +11,7 @@ import MIndHub.HomeBanking.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
 @RestController
@@ -39,6 +42,8 @@ public class ClientController {
     private PasswordEncoder passwordEncoder;
 
     //----------------------------------- GETS --------------------------------------
+
+    private final Lock requestLock = new ReentrantLock();
 
     //all clients
     @GetMapping("/clients")
@@ -69,45 +74,56 @@ public class ClientController {
 
     //New Client
     @PostMapping("/client")
-    public ResponseEntity<?> register(@RequestBody ClientRecord clientRecord){
+    public ResponseEntity<?> register(@RequestBody ClientRecord clientRecord) {
 
-        if (clientService.clientExistsByEmail(clientRecord.email())) {
-            return new ResponseEntity<>("email already in use", HttpStatus.FORBIDDEN);
+
+        try {
+            if (requestLock.tryLock()) {
+                if (clientService.clientExistsByEmail(clientRecord.email())) {
+                    return new ResponseEntity<>("email already in use", HttpStatus.FORBIDDEN);
+                }
+
+                if (clientRecord.name().isBlank()) {
+                    return new ResponseEntity<>("Missing Name or have spaces", HttpStatus.FORBIDDEN);
+                }
+                if (clientRecord.lastName().isBlank()) {
+                    return new ResponseEntity<>("Missing last name or have spaces", HttpStatus.FORBIDDEN);
+                }
+                if (clientRecord.password().isBlank()) {
+                    return new ResponseEntity<>("Missing password or have spaces", HttpStatus.FORBIDDEN);
+                }
+                if (!clientService.passwordValid(clientRecord.password())) {
+                    return new ResponseEntity<>("The password needs 8 characters minimum, 1 (one) Uppercase, 1 (one) Number , 1 special character", HttpStatus.FORBIDDEN);
+                }
+                if (clientRecord.email().isBlank()) {
+                    return new ResponseEntity<>("Missing email or have spaces", HttpStatus.FORBIDDEN);
+                }
+
+
+                Client client = new Client(clientRecord.name(), clientRecord.lastName(), passwordEncoder.encode(clientRecord.password()), clientRecord.email(), false);
+                String accountNumber = accountService.generateAccountNumber();
+
+                Account account = new Account(LocalDate.now(), 00.00, accountNumber, AccountType.NORMAL, true);
+
+                client.addAccount(account);
+
+                clientService.save(client);
+                accountService.save(account);
+
+
+                return new ResponseEntity<>("client created success!!!!!!", HttpStatus.CREATED);
+            }
+            else {
+                return new ResponseEntity<>("Request in progress. Please wait.", HttpStatus.TOO_MANY_REQUESTS);
+            }
+        } finally {
+            requestLock.unlock();
         }
-
-        if (clientRecord.name().isBlank()){
-            return new ResponseEntity<>("Missing Name or have spaces", HttpStatus.FORBIDDEN);
-        }
-        if (clientRecord.lastName().isBlank()){
-            return new ResponseEntity<>("Missing last name or have spaces",HttpStatus.FORBIDDEN);
-        }
-        if (clientRecord.password().isBlank()){
-            return new ResponseEntity<>("Missing password or have spaces", HttpStatus.FORBIDDEN);
-        }
-        if (!clientService.passwordValid(clientRecord.password())) {
-            return new ResponseEntity<>("The password needs 8 characters minimum, 1 (one) Uppercase, 1 (one) Number , 1 special character", HttpStatus.FORBIDDEN );
-        }
-        if (clientRecord.email().isBlank()){
-            return new ResponseEntity<>("Missing email or have spaces", HttpStatus.FORBIDDEN);
-        }
-
-
-
-        Client client = new Client(clientRecord.name(), clientRecord.lastName(), passwordEncoder.encode(clientRecord.password()) , clientRecord.email(), false);
-        String accountNumber = accountService.generateAccountNumber();
-
-        Account account = new Account(LocalDate.now(), 00.00, accountNumber, AccountType.NORMAL, true);
-
-        client.addAccount(account);
-
-        clientService.save(client);
-        accountService.save(account);
-
-
-        return new ResponseEntity<>("client created success!!!!!!",HttpStatus.CREATED);
     }
 
+
     // New Client ADMIN
+    @Scheduled(fixedDelay = 2000)
     @PostMapping("/client/admin")
     public ResponseEntity<Object> createAdmin(@RequestBody AdminRecord adminRecord, Authentication authentication) {
 

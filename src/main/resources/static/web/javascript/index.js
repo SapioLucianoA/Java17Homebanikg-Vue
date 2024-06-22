@@ -86,12 +86,12 @@ createApp({
                             alert(error.response.status + " " + error.response.data);
                             console.log(error.response.headers);
                         } else if (error.request) {
-                            alert(error.request);
+                            alert(error.request  + " " + error.response.data);
                         } else {
                             console.log('Error', error.message);
                         }
                         console.log(error.config);
-                    });;
+                    });
                 })
                 .catch(error => {
                     if (error.response) {
@@ -99,7 +99,7 @@ createApp({
                         alert(error.response.status + " " + error.response.data);
                         console.log(error.response.headers);
                     } else if (error.request) {
-                        alert(error.request);
+                        alert(error.request  + " " + error.response.data);
                     } else {
                         console.log('Error', error.message);
                     }
